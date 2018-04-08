@@ -15,15 +15,15 @@ public class CustomMethod {
 	
 
 public static void main(String[] args) {
-	
-	goToPage(10);
-		}
-public static void goToPage(int pageNumber) {
-	// TODO Auto-generated method stub
 	System.setProperty("webdriver.chrome.driver", "F:\\automation testing tools\\driver\\chromedriver.exe");
 	driver = new ChromeDriver();
 	driver.get("https://www.flipkart.com/?affid=vcommission&affExtParam1=50714");
 
+	goToPage(70);
+		}
+public static void goToPage(int pageNumber) {
+	// TODO Auto-generated method stub
+	
 	WebElement findElement = driver.findElement(By.xpath("//button[text()='✕']"));
 	findElement.click();
 	WebElement offer = driver.findElement(By.xpath("//span[text()='Offer Zone']"));
