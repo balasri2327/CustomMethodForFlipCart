@@ -19,30 +19,31 @@ public static void main(String[] args) {
 	driver = new ChromeDriver();
 	driver.get("https://www.flipkart.com/?affid=vcommission&affExtParam1=50714");
 
-	goToPage(70);
+	customPage(62);
 		}
-public static void goToPage(int pageNumber) {
+public static void customPage(int pageNumber) {
 	// TODO Auto-generated method stub
 	
-	WebElement findElement = driver.findElement(By.xpath("//button[text()='✕']"));
-	findElement.click();
-	WebElement offer = driver.findElement(By.xpath("//span[text()='Offer Zone']"));
-	offer.click();
-	WebElement shirt = driver.findElement(By.xpath("//input[@title='Search for products, brands and more']"));
-	shirt.sendKeys("Shirts",Keys.ENTER);
+	WebElement popupClose = driver.findElement(By.xpath("//button[text()='✕']"));
+	popupClose.click();
+	WebElement offerZone = driver.findElement(By.xpath("//span[text()='Offer Zone']"));
+	offerZone.click();
+	WebElement shirtText = driver.findElement(By.xpath("//input[@title='Search for products, brands and more']"));
+	shirtText.sendKeys("Shirts",Keys.ENTER);
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	WebElement find=driver.findElement(By.xpath("//div[@title='50% or More']"));
+	WebElement discountChxBox=driver.findElement(By.xpath("//div[@title='50% or More']"));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", discountChxBox);
+    discountChxBox.click();
 
-    
-    String val=driver.findElement(By.xpath("//div[@title='50% or More']")).getText();
-    String[] parts = val.split("% or");
+    String val=driver.findElement(By.xpath("//div[text()='62']")).getText();
+    String s="//div[text()='$']";
+    String rep=s.replace("$", String.valueOf(pageNumber));
+    String[] parts = val.split("% off");
     String part1 = parts[0]; // 004
-    String part2 = parts[1]; // 034556
-    
-    if(pageNumber>Integer.parseInt(part1)) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", find);
-
-        find.click();
+    System.out.println(part1);
+    if(pageNumber==Integer.parseInt(part1)) {
+    	WebElement find1=driver.findElement(By.xpath(rep));
+    	find1.click();
 
     }else {
     	System.out.println("Fail");
