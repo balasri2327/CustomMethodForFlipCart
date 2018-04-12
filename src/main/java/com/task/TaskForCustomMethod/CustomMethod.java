@@ -18,12 +18,6 @@ public static void main(String[] args) {
 	System.setProperty("webdriver.chrome.driver", "F:\\automation testing tools\\driver\\chromedriver.exe");
 	driver = new ChromeDriver();
 	driver.get("https://www.flipkart.com/?affid=vcommission&affExtParam1=50714");
-
-	customPage(62);
-		}
-public static void customPage(int pageNumber) {
-	// TODO Auto-generated method stub
-	
 	WebElement popupClose = driver.findElement(By.xpath("//button[text()='✕']"));
 	popupClose.click();
 	WebElement offerZone = driver.findElement(By.xpath("//span[text()='Offer Zone']"));
@@ -35,20 +29,27 @@ public static void customPage(int pageNumber) {
     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", discountChxBox);
     discountChxBox.click();
 
+	customPage("64% off");
+		}
+public static void customPage(String pageNumber) {
+	// TODO Auto-generated method stub
+	
+	
     String val=driver.findElement(By.xpath("//div[text()='62']")).getText();
     String s="//div[text()='$']";
     String rep=s.replace("$", String.valueOf(pageNumber));
     String[] parts = val.split("% off");
     String part1 = parts[0]; // 004
     System.out.println(part1);
-    if(pageNumber==Integer.parseInt(part1)) {
-    	WebElement find1=driver.findElement(By.xpath(rep));
-    	find1.click();
-
-    }else {
-    	System.out.println("Fail");
-    }
-	
+    List<WebElement> s1=driver.findElements(By.xpath("//*[@class='_1KCOnI']"));
+    for(WebElement option : s1){
+	    if(option.getText().equals(rep)) {
+	        System.out.println("Trying to select: "+rep);
+	        option.click();
+	        break;
+	    }		
+}
+   	
 	}
 }
 
